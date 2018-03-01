@@ -4,9 +4,6 @@ from threading import Thread
 reader = RFID()
 class RFID:
 	def __init__(self):
-		global cartStatus
-		global readID
-		global cartActive
 		self.sentMessage = False
 		self.readerThread = Thread(target=self.run)
 	
@@ -18,12 +15,20 @@ class RFID:
 		self.running = False
 
 	def sendMessage(self, uid, active):
+		global cartStatus
+		global readID
+		global cartActive
+
 		cartStatus = True
 		self.sentMessage = True
 		readID = uid
 		cartActive = active
 
 	def run(self):
+		global cartStatus
+		global readID
+		global cartActive
+		
 		while self.running:
 			if self.sentMessage:
 				if not cartStatus:
