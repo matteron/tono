@@ -10,10 +10,9 @@ class RFID:
 		self.sentMessage = False
 		readerThread = Thread(target=reader.run)
 	
-	def start(self){
+	def start(self):
 		self.running = True
 		readerThread.start()
-	}
 
 	def terminate(self):
 		self.running = False
