@@ -9,7 +9,7 @@ cartStatus = False
 global readID			# -1 for no cart found.
 readID = "-1"
 global cartActive	
-cartActive = False 		#
+cartActive = False 		# False if no cart is inserted
 
 reader = RFID()
 readerThread = Thread(target=reader.run)
@@ -21,27 +21,22 @@ playing = False
 playingID = "0"
 playingPath = "0"
 
-pwr = b.pwr()
-fwd = b.fwd()
-pau = b.pau()
-bak = b.bak()
-
 readerThread.start()
 
 while True:
-	if pwr:
+	if b.state_pwr:
 		b.resetStates()
 		break
 	if playing:
 		if cartStatus:
 			playing = False
-		if pau:
+		if b.state_pau:
 			b.resetStates()
 			#pause track
-		if fwd:
+		if b.state_fwd:
 			b.resetStates()
 			#forward track
-		if bak:
+		if b.state_bak:
 			b.resetStates()
 			#previous track
 	else:
@@ -54,6 +49,7 @@ while True:
 					regState = True
 				else:
 					playing = True
+					print(uid)
 					#start player here
 readerThread.terminate()
-#star shutdown
+#start shutdown

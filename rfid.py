@@ -22,7 +22,7 @@ class RFID:
 	def run(self):
 		while self.running:
 			if self.sentMessage:
-				if !cartStatus:
+				if not cartStatus:
 					self.sentMessage = False
 			else:
 				reader.wait_for_tag()
