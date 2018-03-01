@@ -35,3 +35,16 @@ class Buttons:
 		self.state_pau = True
 	def bakHandler(self,channel):
 		self.state_bak = True
+	def pwr(self):
+		return self.state_pwr
+	def fwd(self):
+		return self.state_fwd
+	def pau(self):
+		return self.state_pau
+	def bak(self):
+		return self.state_bak
+	def resetStates(self):
+		self.state_pwr = False
+		self.state_fwd = False
+		self.state_pau = False
+		self.state_bak = False

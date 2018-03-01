@@ -2,6 +2,7 @@ from pirc522 import RFID
 
 global cartStatus
 global readID
+global cartActive
 
 reader = RFID()
 class RFID:
@@ -12,10 +13,11 @@ class RFID:
 	def terminate(self):
 		self.running = False
 
-	def sendMessage(self, uid):
+	def sendMessage(self, uid, active):
 		cartStatus = True
 		self.sentMessage = True
 		readID = uid
+		cartActive = active
 
 	def run(self):
 		while self.running:
@@ -29,8 +31,8 @@ class RFID:
 					(err, uid) = reader.anticoll()
 					reader.stop_crypto()
 					if readID != uid:	
-						sendMessage(uid)
+						sendMessage(uid, True)
 				else:
-					if readID != "-1":
-						sendMessage("-1")
+					if cartActive:
+						sendMessage("-1", False)
 		reader.cleanup			
