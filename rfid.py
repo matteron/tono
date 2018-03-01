@@ -8,7 +8,7 @@ class RFID:
 		global readID
 		global cartActive
 		self.sentMessage = False
-		readerThread = Thread(target=reader.run)
+		readerThread = Thread(target=run)
 	
 	def start(self):
 		self.running = True
