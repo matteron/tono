@@ -14,6 +14,7 @@ class RFID:
 
 	def terminate(self):
 		self.running = False
+		reader.cleanup()
 
 	def sendMessage(self, uid, active):
 		g.cartStatus = True
@@ -36,5 +37,4 @@ class RFID:
 						self.sendMessage(uid, True)
 				else:
 					if g.cartActive:
-						self.sendMessage(["-1"], False)
-		reader.cleanup			
+						self.sendMessage(["-1"], False)			
