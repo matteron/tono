@@ -4,7 +4,7 @@ def init():
 	cartStatus = False
 
 	global readID			# -1 for no cart found.
-	readID = "-1"
+	readID = []
 
 	global cartActive		# False if no cart is inserted
 	cartActive = False 		

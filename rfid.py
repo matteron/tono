@@ -1,10 +1,10 @@
 from pirc522 import RFID
 from threading import Thread
-import rfidGlobals
+import rfidGlobals as g
 
+reader = RFID()
 class RFID:
 	def __init__(self):
-		self.reader = RFID()
 		self.sentMessage = False
 		self.readerThread = Thread(target=self.run)
 	
@@ -16,15 +16,15 @@ class RFID:
 		self.running = False
 
 	def sendMessage(self, uid, active):
-		cartStatus = True
+		g.cartStatus = True
 		self.sentMessage = True
-		readID = uid
-		cartActive = active
+		g.readID = uid
+		g.cartActive = active
 
 	def run(self):
 		while self.running:
 			if self.sentMessage:
-				if not cartStatus:
+				if not g.cartStatus:
 					self.sentMessage = False
 			else:
 				reader.wait_for_tag()
@@ -32,9 +32,9 @@ class RFID:
 				if not err:
 					(err, uid) = reader.anticoll()
 					reader.stop_crypto()
-					if readID != uid:	
-						sendMessage(uid, True)
+					if g.readID != uid:	
+						self.sendMessage(uid, True)
 				else:
-					if cartActive:
-						sendMessage("-1", False)
+					if g.cartActive:
+						self.sendMessage(["-1"], False)
 		reader.cleanup			
