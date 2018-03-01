@@ -1,14 +1,9 @@
 from rfid import RFID
 from cartData import cartData
 from buttons import Buttons
+import rfidGlobals
 
-# Global Variables for Threading with RFID scanner.
-global cartStatus		#True for a change, false for the same.
-cartStatus = False
-global readID			# -1 for no cart found.
-readID = "-1"
-global cartActive	
-cartActive = False 		# False if no cart is inserted
+rfidGlobals.init()
 
 reader = RFID()
 cartData = cartData()

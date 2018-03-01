@@ -1,9 +1,10 @@
 from pirc522 import RFID
 from threading import Thread
+import rfidGlobals
 
-reader = RFID()
 class RFID:
 	def __init__(self):
+		self.reader = RFID()
 		self.sentMessage = False
 		self.readerThread = Thread(target=self.run)
 	
@@ -28,7 +29,7 @@ class RFID:
 		global cartStatus
 		global readID
 		global cartActive
-		
+
 		while self.running:
 			if self.sentMessage:
 				if not cartStatus:
