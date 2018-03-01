@@ -9,6 +9,7 @@ reader = RFID()
 cartData = cartData()
 b = Buttons(7,11,13,15)
 
+running = True
 regState = False
 playing = False
 playingID = []
@@ -16,10 +17,12 @@ playingPath = "0"
 
 reader.start()
 
-while True:
+while running:
 	if b.state_pwr:
+		print("Power")
+		reader.terminate()
+		running = False
 		b.resetStates()
-		break
 	if playing:
 		if g.cartStatus:
 			playing = False
@@ -47,5 +50,4 @@ while True:
 					playing = True
 					print(playingID[0])
 					#start player here
-reader.terminate()
-#start shutdown
+print("Shut off")
