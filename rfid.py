@@ -1,9 +1,5 @@
 from pirc522 import RFID
 
-global cartStatus
-global readID
-global cartActive
-
 reader = RFID()
 class RFID:
 	def __init__(self):
@@ -20,6 +16,10 @@ class RFID:
 		cartActive = active
 
 	def run(self):
+		global cartStatus
+		global readID
+		global cartActive
+		
 		while self.running:
 			if self.sentMessage:
 				if not cartStatus:
