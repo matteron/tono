@@ -1,7 +1,6 @@
 from rfid import RFID
 from cartData import cartData
 from buttons import Buttons
-from threading import Thread
 
 # Global Variables for Threading with RFID scanner.
 global cartStatus		#True for a change, false for the same.
@@ -12,7 +11,6 @@ global cartActive
 cartActive = False 		# False if no cart is inserted
 
 reader = RFID()
-readerThread = Thread(target=reader.run)
 cartData = cartData()
 b = Buttons(7,11,13,15)
 
@@ -21,7 +19,7 @@ playing = False
 playingID = "0"
 playingPath = "0"
 
-readerThread.start()
+reader.start()
 
 while True:
 	if b.state_pwr:
@@ -51,5 +49,5 @@ while True:
 					playing = True
 					print(uid)
 					#start player here
-readerThread.terminate()
+reader.terminate()
 #start shutdown
