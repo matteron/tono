@@ -32,9 +32,9 @@ class RFID:
 				(err, tag_type) = reader.request()
 				if not err:
 					(err, uid) = reader.anticoll()
-					reader.stop_crypto()
-					if g.readID != uid:	
-						self.sendMessage(uid, True)
+					if not err:
+						if g.readID != uid:	
+							self.sendMessage(uid, True)
 				else:
 					if g.cartActive:
 						self.sendMessage(["-1"], False)			

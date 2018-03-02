@@ -25,14 +25,17 @@ while running:
 		print("Power")
 		reader.terminate()
 		player.stop()
+		playing = False
 		running = False
 		b.resetStates()
 
 	if playing:
 		if g.cartStatus:
-			playing = False
-			player.stop()
-			print("Ejected!")
+			if not g.cartActive:
+				playing = False
+				player.stop()
+				print("Ejected!")
+				g.cartStatus = False
 
 		if b.state_pau:
 			if pauseState == 0:
@@ -56,9 +59,11 @@ while running:
 
 	else:
 		if regState:
-			print(playingID[0] playingID[1] playingID[2] playingID[3])
 			if b.state_pau:
+				print("Exiting Registration")
 				regState = False
+				g.cardStatus = False
+				g.readID = []
 				b.resetStates()
 
 		if g.cartStatus:
@@ -68,8 +73,10 @@ while running:
 				playlist = cartData.getCartPlaylist(playingID)
 				if playlist == None:
 					regState = True
+					print("Registering...")
+					print(playingID[0], playingID[1], playingID[2], playingID[3])
 				else:
 					playing = True
-					print(playingID[0] playingID[1] playingID[2] playingID[3])
+					print(playingID[0], playingID[1], playingID[2], playingID[3])
 					player.load(playlist)
 print("Shut off")
