@@ -36,12 +36,12 @@ while running:
 
 		if b.state_pau:
 			if pauseState == 0:
-				pauseVal = 1
+				pauseState = 1
 				print("Pause")
 			elif pauseState == 1:
-				pauseVale = 0
+				pauseState = 0
 				print("Play")
-			player.pause(pauseVal)
+			player.pause(pauseState)
 			b.resetStates()
 
 		if b.state_fwd:

@@ -15,16 +15,16 @@ class Buttons:
 
 		GPIO.setmode(GPIO.BOARD)
 		GPIO.setup(pin_pwr, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-		GPIO.add_event_detect(pin_pwr,GPIO.RISING)
+		GPIO.add_event_detect(pin_pwr,GPIO.RISING,bouncetime=1000)
 		GPIO.add_event_callback(pin_pwr,self.pwrHandler)
 		GPIO.setup(pin_fwd, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-		GPIO.add_event_detect(pin_fwd,GPIO.RISING)
+		GPIO.add_event_detect(pin_fwd,GPIO.RISING,bouncetime=1000)
 		GPIO.add_event_callback(pin_fwd,self.fwdHandler)
 		GPIO.setup(pin_pau, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-		GPIO.add_event_detect(pin_pau,GPIO.RISING)
+		GPIO.add_event_detect(pin_pau,GPIO.RISING,bouncetime=1000)
 		GPIO.add_event_callback(pin_pau,self.pauHandler)
 		GPIO.setup(pin_bak, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-		GPIO.add_event_detect(pin_bak,GPIO.RISING)
+		GPIO.add_event_detect(pin_bak,GPIO.RISING,bouncetime=1000)
 		GPIO.add_event_callback(pin_bak,self.bakHandler)
 	
 	def pwrHandler(self,channel):
