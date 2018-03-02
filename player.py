@@ -1,4 +1,5 @@
 from mpd import MPDClient
+from urlparse import urlparse
 
 client = MPDClient()
 
@@ -10,5 +11,6 @@ class Player:
 		self.playingPath = "0"
 
 	def addTest(self):
-		MPDClient.add("~/music/USB/Music/Tyler, The Creator/Flower Boy")
+		url = urlparse("file://~/music/USB/Music/Tyler, The Creator/Flower Boy")
+		MPDClient.add(url)
 		client.playlist()
