@@ -27,17 +27,20 @@ while running:
 		player.stop()
 		running = False
 		b.resetStates()
+
 	if playing:
 		if g.cartStatus:
 			playing = False
 			player.stop()
+			print("Ejected!")
 
 		if b.state_pau:
-			print("Pause")
 			if pauseState == 0:
 				pauseVal = 1
+				print("Pause")
 			elif pauseState == 1:
 				pauseVale = 0
+				print("Play")
 			player.pause(pauseVal)
 			b.resetStates()
 
