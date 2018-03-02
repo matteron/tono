@@ -55,6 +55,12 @@ while running:
 			b.resetStates()
 
 	else:
+		if regState:
+			print(playingID[0] playingID[1] playingID[2] playingID[3])
+			if b.state_pau:
+				regState = False
+				b.resetStates()
+
 		if g.cartStatus:
 			if g.cartActive:
 				g.cartStatus = False
@@ -64,6 +70,6 @@ while running:
 					regState = True
 				else:
 					playing = True
-					print(playingID[0] + playingID[1] + playingID[2] + playingID[3])
+					print(playingID[0] playingID[1] playingID[2] playingID[3])
 					player.load(playlist)
 print("Shut off")
