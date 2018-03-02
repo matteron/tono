@@ -10,4 +10,5 @@ class Player:
 		self.playingPath = "0"
 
 	def addTest(self):
-		client.playlist()s
+		MPDClient.add("~/music/USB/Music/Tyler, The Creator/Flower Boy")
+		client.playlist()
