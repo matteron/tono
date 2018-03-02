@@ -36,7 +36,7 @@ while running:
 			print("Pause")
 			if pauseState == 0:
 				pauseVal = 1
-			else if pauseState == 1:
+			elif pauseState == 1:
 				pauseVale = 0
 			player.pause(pauseVal)
 			b.resetStates()

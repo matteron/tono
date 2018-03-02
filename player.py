@@ -11,7 +11,7 @@ class Player:
 	# Loads and plays the first song in the album.
 	def load(self, playlist):
 		client.load(playlist)
-		client.play(15)
+		client.pause(0)
 
 	# Play/Pause client.  0 for Play, 1 for Pause
 	def pause(self,value):
