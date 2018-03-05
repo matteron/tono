@@ -20,6 +20,8 @@ playlist = "0"
 
 reader.start()
 
+print("ready")
+
 while running:
 	if b.state_pwr:
 		print("Power")
@@ -78,6 +80,7 @@ while running:
 				else:
 					playing = True
 					print(playingID[0], playingID[1], playingID[2], playingID[3])
+					print(playlist)
 					player.load(playlist)
 print("Shut off")
 # Uncomment once pi is ready for full use.

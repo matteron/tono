@@ -2,7 +2,8 @@ from pirc522 import RFID
 from threading import Thread
 import rfidGlobals as g
 
-reader = RFID()
+reader = RFID(bus=0,device=0)
+
 class RFID:
 	def __init__(self):
 		self.sentMessage = False

@@ -10,6 +10,7 @@ class Player:
 
 	# Loads and plays the first song in the album.
 	def load(self, playlist):
+		client.clear()
 		client.load(playlist)
 		client.play(0)
 
