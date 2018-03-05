@@ -80,3 +80,5 @@ while running:
 					print(playingID[0], playingID[1], playingID[2], playingID[3])
 					player.load(playlist)
 print("Shut off")
+# Uncomment once pi is ready for full use.
+# subprocess.call(['shutdown', '-h', 'now'], shell=False)
