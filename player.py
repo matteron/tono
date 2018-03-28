@@ -10,28 +10,30 @@ class Player:
 		client.connect(HOST, PORT)
 
 	def connect(self):
-		client.connect(HOST, PORT)
+		try:
+			client.connect(HOST, PORT)
+			yield
 	# Loads and plays the first song in the album.
 	def load(self, playlist):
-		connect()
+		self.connect()
 		client.clear()
 		client.load(playlist)
 		client.play(0)
 
 	# Play/Pause client.  0 for Play, 1 for Pause
 	def pause(self,value):
-		connect()
+		self.connect()
 		client.pause(value)
 
 	def next(self):
-		connect()
+		self.connect()
 		client.next()
 
 	def prev(self):
-		connect()
+		self.connect()
 		if(client.status() > 0):
 			client.previous()
 
 	def stop(self):
-		connect()
+		self.connect()
 		client.stop()
