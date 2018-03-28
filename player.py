@@ -15,7 +15,7 @@ class Player:
 			client.clear()
 			client.load(playlist)
 			client.play(0)
-        except mpd.ConnectionError:
+		except mpd.ConnectionError:
 			client.connect(HOST, PORT)
 			client.clear()
 			client.load(playlist)
@@ -27,7 +27,7 @@ class Player:
 	def pause(self,value):
 		try:
 			client.pause(value)
-        except mpd.ConnectionError:
+		except mpd.ConnectionError:
 			client.connect(HOST, PORT)
 			client.pause(value)
 		
@@ -36,16 +36,16 @@ class Player:
 		try:
 			if(client.status()['song'] < client.status()[playlistlength]):
 				client.next()
-        except mpd.ConnectionError:
+		except mpd.ConnectionError:
 			client.connect(HOST, PORT)
-			if(client.status() < client.status()[playlistlength]):
+			if(client.status() < client.status()[playlistlengths]):
 				client.next()
 
 	def prev(self):
 		try:
 			if(client.status()['song'] > 0):
 				client.previous()
-        except mpd.ConnectionError:
+		except mpd.ConnectionError:
 			client.connect(HOST, PORT)
 			if(client.status() > 0):
 				client.previous()
@@ -54,6 +54,6 @@ class Player:
 	def stop(self):
 		try:
 			client.stop()
-        except mpd.ConnectionError:
+		except mpd.ConnectionError:
 			client.connect(HOST, PORT)
 			client.stop()
