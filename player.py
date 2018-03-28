@@ -1,7 +1,7 @@
 import mpd
 
 HOST, PORT = "127.0.0.1", 6600
-client = MPDClient()
+client = mpd.MPDClient()
 
 class Player:
 	def __init__(self):
