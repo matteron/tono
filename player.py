@@ -1,4 +1,4 @@
-from mpd import MPDClient
+import mpd
 
 HOST, PORT = "127.0.0.1", 6600
 client = MPDClient()
