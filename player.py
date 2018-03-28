@@ -7,12 +7,15 @@ class Player:
 	def __init__(self):
 		client.timeout = 10
 		client.idletimeout = None
-		client.connect(HOST, PORT)
+		self.connect()
 
 	def connect(self):
 		try:
 			client.connect(HOST, PORT)
 			yield
+		finally:
+			client.close()
+        	client.disconnect()
 
 	# Loads and plays the first song in the album.
 	def load(self, playlist):
