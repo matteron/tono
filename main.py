@@ -55,12 +55,14 @@ while running:
 				print("Button Pressed: Play")
 				player.pause(0)
 				print("Resuming...")
+				b.resetStates()
 			if g.cartStatus:
-				if g.cartActive:
+				if not g.cartActive:
 					print("Ejected!")
 					player.stop()
 					active = False
-	else: 
+				g.cartStatus = False
+	else:
 		if regState:
 			if b.state_pau:
 				print("Pause Pressed: Exiting Registration")
@@ -76,9 +78,15 @@ while running:
 				active = True
 				print("Ignition!")
 				b.resetStates()
+			if g.cartStatus:
+				if not g.cartActive:
+					ignition = False
+					print("Ejected!")
+					print("igniton: off")
+				g.cartStatus = False
+				b.resetStates()
 		elif g.cartStatus:
 			if g.cartActive:
-				g.cartStatus = False
 				playingID = g.readID
 				playlist = cartData.getCartPlaylist(playingID)
 				if playlist == None:
@@ -91,6 +99,7 @@ while running:
 					print(playlist)
 					player.load(playlist)
 					print("ignition: on")
+			g.cartStatus = False
 print("Shutting Off")
 # Uncomment once pi is ready for full use.
 # subprocess.call(['shutdown', '-h', 'now'], shell=False)
