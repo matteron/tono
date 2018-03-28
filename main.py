@@ -1,6 +1,6 @@
-from rfid import RFID
+from rfid import rfid
 from cartData import cartData
-from buttons import Buttons
+from buttons import buttons
 from player import Player
 import rfidGlobals as g
 
@@ -11,77 +11,77 @@ cartData = cartData()
 b = Buttons(7,11,13,15)
 player = Player()
 
-running = True
-regState = False
-playing = False
-pauseState = 0		#0 for Play, 1 for Pause
-playingID = []
-playlist = "0"
+running = True			# If main program is running
+regState = False		# If program is in registration state.
+active = False			# If we are playing or not
+ignition = False		# If we have loaded the playlist but haven't started play yet
+
+playindID = []			# an array of strings for the UID
+playlist = "0"			# playlist string from the database.csv
 
 reader.start()
 
+#Insert code for intro chime.
 print("ready")
 
 while running:
 	if b.state_pwr:
-		print("Power")
+		print("Button Pressed: Power")
 		reader.terminate()
 		player.stop()
-		playing = False
-		running = False
 		b.resetStates()
-
-	if playing:
-		if g.cartStatus:
-			if not g.cartActive:
-				playing = False
-				player.stop()
-				print("Ejected!")
-				g.cartStatus = False
-
-		if b.state_pau:
-			if pauseState == 0:
-				pauseState = 1
-				print("Pause")
-			elif pauseState == 1:
-				pauseState = 0
-				print("Play")
-			player.pause(pauseState)
-			b.resetStates()
-
-		if b.state_fwd:
-			print("Forward")
-			player.next()
-			b.resetStates()
-
-		if b.state_bak:
-			print("Rewind")
-			player.prev()
-			b.resetStates()
-
-	else:
+		running = False
+	if active:
+		if player.playing():
+			if b.state_pau:
+				print("Button Pressed: Pause")
+				player.pause(0)
+				print("Pausing...")
+				b.resetStates()
+			if b.state_fwd:
+				print("Button Pressed: Next")
+				player.next()
+				print("Next Track...")
+				b.resetStates()
+			if b.state_bak:
+				print("Button Pressed: Previous")
+				player.prev()
+				print("Previous Track...")
+				b.resetStates()
+		else:
+			if g.cartStatus:
+				if cartActive:
+					active = False
+	else: 
 		if regState:
 			if b.state_pau:
-				print("Exiting Registration")
+				print("Pause Pressed: Exiting Registration")
 				regState = False
-				g.cardStatus = False
+				g.cartStatus = False
 				g.readID = []
 				b.resetStates()
-
-		if g.cartStatus:
+		elif ignition:
+			if b.state_pau:
+				print(playlist)
+				player.start()
+				ignition = False
+				active = True
+				b.resetStates()
+		elif g.cartStatus:
 			if g.cartActive:
 				g.cartStatus = False
 				playingID = g.readID
 				playlist = cartData.getCartPlaylist(playingID)
 				if playlist == None:
 					regState = True
-					print("Registering...")
+					print("Enterin Registration")
 					print(playingID[0], playingID[1], playingID[2], playingID[3])
 				else:
-					playing = True
+					ignition = True
 					print(playingID[0], playingID[1], playingID[2], playingID[3])
 					print(playlist)
-					player.load(playlist)
-print("Shut off")
+					play.load(playlist)
+					print("ignition: on")
+print("Shutting Off")
 # Uncomment once pi is ready for full use.
 # subprocess.call(['shutdown', '-h', 'now'], shell=False)
