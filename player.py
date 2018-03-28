@@ -34,11 +34,11 @@ class Player:
 
 	def next(self):
 		try:
-			if(int(client.status()['song']) < int(client.status()[playlistlength])):
+			if(int(client.status()['song']) < int(client.status()['playlistlength'])):
 				client.next()
 		except mpd.ConnectionError:
 			client.connect(HOST, PORT)
-			if(int(client.status()['song']) < int(client.status()[playlistlength])):
+			if(int(client.status()['song']) < int(client.status()['playlistlength'])):
 				client.next()
 
 	def prev(self):
