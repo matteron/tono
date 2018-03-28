@@ -13,6 +13,7 @@ class Player:
 		try:
 			client.connect(HOST, PORT)
 			yield
+			
 	# Loads and plays the first song in the album.
 	def load(self, playlist):
 		self.connect()
