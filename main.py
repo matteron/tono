@@ -27,8 +27,6 @@ while running:
 		print("Power")
 		reader.terminate()
 		player.stop()
-		player.close()
-		player.disconnect()
 		playing = False
 		running = False
 		b.resetStates()
