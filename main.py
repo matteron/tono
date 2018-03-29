@@ -1,6 +1,6 @@
-from rfid import rfid
+from rfid import RFID
 from cartData import cartData
-from buttons import buttons
+from buttons import Buttons
 from player import Player
 import rfidGlobals as g
 
@@ -31,11 +31,13 @@ while running:
 		player.stop()
 		b.resetStates()
 		running = False
+		active = False
+		break
 	if active:
 		if player.playing():
 			if b.state_pau:
 				print("Button Pressed: Pause")
-				player.pause(0)
+				player.pause(1)
 				print("Pausing...")
 				b.resetStates()
 			if b.state_fwd:
@@ -49,10 +51,18 @@ while running:
 				print("Previous Track...")
 				b.resetStates()
 		else:
+			if b.state_pau:
+				print("Button Pressed: Play")
+				player.pause(0)
+				print("Resuming...")
+				b.resetStates()
 			if g.cartStatus:
-				if cartActive:
+				if not g.cartActive:
+					print("Ejected!")
+					player.stop()
 					active = False
-	else: 
+				g.cartStatus = False
+	else:
 		if regState:
 			if b.state_pau:
 				print("Pause Pressed: Exiting Registration")
@@ -66,10 +76,17 @@ while running:
 				player.start()
 				ignition = False
 				active = True
+				print("Ignition!")
+				b.resetStates()
+			if g.cartStatus:
+				if not g.cartActive:
+					ignition = False
+					print("Ejected!")
+					print("igniton: off")
+				g.cartStatus = False
 				b.resetStates()
 		elif g.cartStatus:
 			if g.cartActive:
-				g.cartStatus = False
 				playingID = g.readID
 				playlist = cartData.getCartPlaylist(playingID)
 				if playlist == None:
@@ -80,8 +97,9 @@ while running:
 					ignition = True
 					print(playingID[0], playingID[1], playingID[2], playingID[3])
 					print(playlist)
-					play.load(playlist)
+					player.load(playlist)
 					print("ignition: on")
+			g.cartStatus = False
 print("Shutting Off")
 # Uncomment once pi is ready for full use.
 # subprocess.call(['shutdown', '-h', 'now'], shell=False)
