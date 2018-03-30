@@ -3,7 +3,6 @@ from cartData import cartData
 from buttons import Buttons
 from player import Player
 import rfidGlobals as g
-import sys
 
 g.init()
 
@@ -22,12 +21,10 @@ playlist = "0"			# playlist string from the database.csv
 
 reader.start()
 
-#Code for intro chime
-#player.load("chime")
-#player.start()
-while player.player():
-	#do nothing
-player.stop()
+player.load("startup")
+player.start()
+while player.playing():
+	pass
 print("ready")
 
 while running:
@@ -107,6 +104,4 @@ while running:
 					print("ignition: on")
 			g.cartStatus = False
 print("Shutting Off")
-# Uncomment once pi is ready for full use.
-# subprocess.call(['shutdown', '-h', 'now'], shell=False)
-sys.exit()
+subprocess.call(['shutdown', 'now'], shell=False)
