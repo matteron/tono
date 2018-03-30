@@ -34,6 +34,11 @@ while running:
 		reader.terminate()
 		player.stop()
 		b.resetStates()
+		#play startup sound to signal shutdown, might change later.
+		player.load("startup")
+		player.start()
+		while player.playing():
+			pass
 		running = False
 		active = False
 		break
