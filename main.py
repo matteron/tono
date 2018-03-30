@@ -3,6 +3,7 @@ from cartData import cartData
 from buttons import Buttons
 from player import Player
 import rfidGlobals as g
+import subprocess
 
 g.init()
 
